@@ -13,7 +13,7 @@ type Appt = {
   doctors: { full_name: string; specialization: string } | null;
 };
 
-type Record = {
+type MedRecord = {
   id: string; diagnosis: string; prescription: string | null; notes: string | null; created_at: string;
   doctors: { full_name: string } | null;
 };
@@ -33,7 +33,7 @@ function MyAppointmentsPage() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [appts, setAppts] = useState<Appt[] | null>(null);
-  const [records, setRecords] = useState<Record[] | null>(null);
+  const [records, setRecords] = useState<MedRecord[] | null>(null);
 
   const load = useCallback(async () => {
     if (!user) return;
@@ -42,7 +42,7 @@ function MyAppointmentsPage() {
       supabase.from("medical_records").select("id,diagnosis,prescription,notes,created_at,doctors(full_name)").eq("patient_id", user.id).order("created_at", { ascending: false }),
     ]);
     setAppts((a ?? []) as unknown as Appt[]);
-    setRecords((r ?? []) as unknown as Record[]);
+    setRecords((r ?? []) as unknown as MedRecord[]);
   }, [user]);
 
   useEffect(() => {
