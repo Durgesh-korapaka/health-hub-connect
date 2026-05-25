@@ -9,38 +9,187 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MyAppointmentsRouteImport } from './routes/my-appointments'
+import { Route as DoctorsRouteImport } from './routes/doctors'
+import { Route as DoctorRouteImport } from './routes/doctor'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookDoctorIdRouteImport } from './routes/book.$doctorId'
+import { Route as AdminDoctorsRouteImport } from './routes/admin.doctors'
 
+const MyAppointmentsRoute = MyAppointmentsRouteImport.update({
+  id: '/my-appointments',
+  path: '/my-appointments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorsRoute = DoctorsRouteImport.update({
+  id: '/doctors',
+  path: '/doctors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorRoute = DoctorRouteImport.update({
+  id: '/doctor',
+  path: '/doctor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookDoctorIdRoute = BookDoctorIdRouteImport.update({
+  id: '/book/$doctorId',
+  path: '/book/$doctorId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDoctorsRoute = AdminDoctorsRouteImport.update({
+  id: '/doctors',
+  path: '/doctors',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
+  '/doctor': typeof DoctorRoute
+  '/doctors': typeof DoctorsRoute
+  '/my-appointments': typeof MyAppointmentsRoute
+  '/admin/doctors': typeof AdminDoctorsRoute
+  '/book/$doctorId': typeof BookDoctorIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
+  '/doctor': typeof DoctorRoute
+  '/doctors': typeof DoctorsRoute
+  '/my-appointments': typeof MyAppointmentsRoute
+  '/admin/doctors': typeof AdminDoctorsRoute
+  '/book/$doctorId': typeof BookDoctorIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
+  '/doctor': typeof DoctorRoute
+  '/doctors': typeof DoctorsRoute
+  '/my-appointments': typeof MyAppointmentsRoute
+  '/admin/doctors': typeof AdminDoctorsRoute
+  '/book/$doctorId': typeof BookDoctorIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/dashboard'
+    | '/doctor'
+    | '/doctors'
+    | '/my-appointments'
+    | '/admin/doctors'
+    | '/book/$doctorId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/dashboard'
+    | '/doctor'
+    | '/doctors'
+    | '/my-appointments'
+    | '/admin/doctors'
+    | '/book/$doctorId'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/dashboard'
+    | '/doctor'
+    | '/doctors'
+    | '/my-appointments'
+    | '/admin/doctors'
+    | '/book/$doctorId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  DashboardRoute: typeof DashboardRoute
+  DoctorRoute: typeof DoctorRoute
+  DoctorsRoute: typeof DoctorsRoute
+  MyAppointmentsRoute: typeof MyAppointmentsRoute
+  BookDoctorIdRoute: typeof BookDoctorIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/my-appointments': {
+      id: '/my-appointments'
+      path: '/my-appointments'
+      fullPath: '/my-appointments'
+      preLoaderRoute: typeof MyAppointmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctors': {
+      id: '/doctors'
+      path: '/doctors'
+      fullPath: '/doctors'
+      preLoaderRoute: typeof DoctorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctor': {
+      id: '/doctor'
+      path: '/doctor'
+      fullPath: '/doctor'
+      preLoaderRoute: typeof DoctorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +197,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book/$doctorId': {
+      id: '/book/$doctorId'
+      path: '/book/$doctorId'
+      fullPath: '/book/$doctorId'
+      preLoaderRoute: typeof BookDoctorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/doctors': {
+      id: '/admin/doctors'
+      path: '/doctors'
+      fullPath: '/admin/doctors'
+      preLoaderRoute: typeof AdminDoctorsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminDoctorsRoute: typeof AdminDoctorsRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminDoctorsRoute: AdminDoctorsRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
+  DashboardRoute: DashboardRoute,
+  DoctorRoute: DoctorRoute,
+  DoctorsRoute: DoctorsRoute,
+  MyAppointmentsRoute: MyAppointmentsRoute,
+  BookDoctorIdRoute: BookDoctorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
